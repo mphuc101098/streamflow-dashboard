@@ -1,6 +1,7 @@
 "use client";
 
 import { Children, useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   Button,
   Dialog,
@@ -16,6 +17,7 @@ import {
   FolderIcon,
   HomeIcon,
   MoonIcon,
+  SunIcon,
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -24,8 +26,8 @@ import MenuDropDown from "./MenuDropDown";
 import WalletDropDown from "./WalletDropDown";
 
 const navigation = [
-  { name: "Vesting", href: "#", icon: HomeIcon, current: true },
-  { name: "Token Lock", href: "#", icon: UsersIcon, current: false },
+  { name: "Vesting", href: "/Vesting", icon: HomeIcon, current: true },
+  { name: "Token Lock", href: "/TokenLock", icon: UsersIcon, current: false },
   { name: "Airdrops", href: "#", icon: FolderIcon, current: false },
   { name: "Stalking", href: "#", icon: CalendarIcon, current: false },
   {
@@ -44,22 +46,19 @@ const teams = [
 ];
 
 export default function Header() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const pathName = usePathname();
+  console.log(pathName);
 
-  const toggleDarkMode = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [toggleDarkMode, setToggleDarkMode] = useState(false);
+
+  const handleDarkMode = () => {
     document.documentElement.classList.toggle("dark");
+    setToggleDarkMode(!toggleDarkMode);
   };
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
       <div>
         <Dialog
           open={sidebarOpen}
@@ -92,7 +91,7 @@ export default function Header() {
                 </div>
               </TransitionChild>
               {/* Sidebar component, swap this element with another sidebar if you like */}
-              <div className='flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2'>
+              <div className='flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-black px-6 pb-2'>
                 <div className='flex h-16 shrink-0 items-center'></div>
                 <nav className='flex flex-1 flex-col'>
                   <ul
@@ -109,18 +108,18 @@ export default function Header() {
                             <a
                               href={item.href}
                               className={clsx(
-                                item.current
-                                  ? "bg-gray-50 text-indigo-600"
-                                  : "text-gray-700 hover:bg-gray-50 hover:text-indigo-600",
+                                pathName.startsWith(item.href)
+                                  ? "text-indigo-300 "
+                                  : "text-gray-700  hover:text-indigo-300 dark:text-white",
                                 "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                               )}
                             >
                               <item.icon
                                 aria-hidden='true'
                                 className={clsx(
-                                  item.current
-                                    ? "text-indigo-600"
-                                    : "text-gray-400 group-hover:text-indigo-600",
+                                  pathName.startsWith(item.href)
+                                    ? "text-indigo-300 "
+                                    : "text-gray-400 group-hover:text-indigo-300 dark:text-white",
                                   "h-6 w-6 shrink-0"
                                 )}
                               />
@@ -144,16 +143,16 @@ export default function Header() {
                               href={team.href}
                               className={clsx(
                                 team.current
-                                  ? "bg-gray-50 text-indigo-600"
-                                  : "text-gray-700  hover:text-indigo-600",
+                                  ? "bg-gray-50 text-indigo-300"
+                                  : "text-gray-700  hover:text-indigo-300",
                                 "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                               )}
                             >
                               <span
                                 className={clsx(
                                   team.current
-                                    ? "border-indigo-600 text-indigo-600"
-                                    : "border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600",
+                                    ? "border-indigo-600 text-indigo-300"
+                                    : "border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-300",
                                   "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium"
                                 )}
                               >
@@ -196,18 +195,18 @@ export default function Header() {
                         <a
                           href={item.href}
                           className={clsx(
-                            item.current
-                              ? "text-indigo-600"
-                              : "text-gray-700 cursor-pointer",
+                            pathName.startsWith(item.href)
+                              ? "text-indigo-300"
+                              : "text-gray-700 dark:text-white cursor-pointer",
                             "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                           )}
                         >
                           <item.icon
                             aria-hidden='true'
                             className={clsx(
-                              item.current
-                                ? "text-indigo-600"
-                                : "text-gray-400 ",
+                              pathName.startsWith(item.href)
+                                ? "text-indigo-300"
+                                : "text-gray-400 dark:text-white",
                               "h-6 w-6 shrink-0"
                             )}
                           />
@@ -231,16 +230,16 @@ export default function Header() {
                           href={team.href}
                           className={clsx(
                             team.current
-                              ? "bg-gray-50 text-indigo-600"
-                              : "text-gray-700 hover:bg-gray-50 hover:text-indigo-600",
+                              ? "bg-gray-50 text-indigo-300"
+                              : "text-gray-700 hover:bg-gray-50 hover:text-indigo-300",
                             "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                           )}
                         >
                           <span
                             className={clsx(
                               team.current
-                                ? "border-indigo-600 text-indigo-600"
-                                : "border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600",
+                                ? "border-indigo-600 text-indigo-300"
+                                : "border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-300",
                               "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium"
                             )}
                           >
@@ -266,43 +265,51 @@ export default function Header() {
           </div>
         </div>
 
-        <div className='sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden'>
-          <button
-            type='button'
-            onClick={() => setSidebarOpen(true)}
-            className='-m-2.5 p-2.5 text-gray-700 lg:hidden'
-          >
-            <span className='sr-only'>Open sidebar</span>
-            <Bars3Icon
-              aria-hidden='true'
-              className='h-6 w-6'
-            />
-          </button>
-          <div className='flex-1 text-sm font-semibold leading-6 text-gray-900'>
-            Dashboard
+        <div className='w-full'>
+          <div className='sticky  top-0 z-40 flex items-center gap-x-6  bg-white dark:bg-black px-4 py-4 shadow-sm sm:px-6 lg:hidden'>
+            <button
+              type='button'
+              onClick={() => setSidebarOpen(true)}
+              className='-m-2.5 p-2.5 text-black dark:text-white lg:hidden'
+            >
+              <span className='sr-only'>Open sidebar</span>
+              <Bars3Icon
+                aria-hidden='true'
+                className='h-6 w-6'
+              />
+            </button>
+            <div className='flex-1 text-sm font-semibold leading-6 text-white '>
+              Dashboard
+            </div>
+            <a href='#'>
+              <span className='sr-only'>Your profile</span>
+            </a>
           </div>
-          <a href='#'>
-            <span className='sr-only'>Your profile</span>
-          </a>
-        </div>
 
-        <main className='lg:pl-72'>
-          <div className='flex h-16 shrink-0 items-center border-b border-slate-800'>
-            <div className='mx-4 flex place-content-between w-full'>
-              <div className='text-black dark:text-white'>Page name</div>
-              <div className='justify-center'>
-                <Button
-                  className='bg-[#1a1d2d] text-white p-2 rounded-md mr-2  justify-center'
-                  onClick={toggleDarkMode}
-                >
-                  <MoonIcon className='size-6 justify-center mb-0' />
-                </Button>
-                <WalletDropDown />
-                <MenuDropDown />
+          <main className='hidden lg:block'>
+            <div className='flex h-16 shrink-0 items-center border-b border-slate-800'>
+              <div className='mx-4 flex place-content-between w-full max-h-10'>
+                <div className='text-black bg-white dark:bg-black'>
+                  Page name
+                </div>
+                <div className='flex justify-center '>
+                  <Button
+                    className='bg-[#1a1d2d] text-white p-2 rounded-md mr-2 mt-[-6] justify-center'
+                    onClick={handleDarkMode}
+                  >
+                    {toggleDarkMode ? (
+                      <MoonIcon className='size-6 justify-center mb-0' />
+                    ) : (
+                      <SunIcon className='size-6 justify-center mb-0' />
+                    )}
+                  </Button>
+                  <WalletDropDown />
+                  <MenuDropDown />
+                </div>
               </div>
             </div>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
     </>
   );

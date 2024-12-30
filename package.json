@@ -25,5 +25,6 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@8.2.0+sha1.41bf53189f36dd17c23e98d6b8f9903f5ccfc200"
 }

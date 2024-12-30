@@ -1,11 +1,17 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 
 export default function MenuDropDown() {
   return (
     <Menu>
-      <MenuButton className='bg-[#1a1d2d] text-white p-2 rounded-md truncate w-48'>
-        FF133LWcv1YPzQvNTnN3nAWEXH17LPgC5bmvgZz6V6bp
+      <MenuButton
+        data-active
+        className='inline-flex bg-[#1a1d2d] text-white p-2 rounded-md truncate w-48 justify-center'
+      >
+        Wallet
+        <ChevronDownIcon className='h-5 w-5' />
       </MenuButton>
+
       <MenuItems
         anchor='bottom end'
         className='border-2 w-52 p-6 bg-[#1a1d2d] text-white rounded-md space-y-4'

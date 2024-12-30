@@ -3,7 +3,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 export default function WalletDropDown() {
   return (
     <Menu>
-      <MenuButton className='bg-[#1a1d2d] text-white p-2 rounded-md truncate w-48 mr-2'>
+      <MenuButton className='bg-[#1a1d2d] text-white justify-center p-2 rounded-md truncate w-48 mr-2'>
         Wallet
       </MenuButton>
       <MenuItems

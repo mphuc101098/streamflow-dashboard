@@ -16,11 +16,11 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className='dark'
+      className='dark max-w-screen h-full'
     >
       <body className='bg-white dark:bg-black'>
         <Header />
-        <main className='pl-72'>{children}</main>
+        <main className='lg:pl-72 px-4 mt-2'>{children}</main>
       </body>
     </html>
   );
