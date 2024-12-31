@@ -7,12 +7,16 @@ import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
   TransitionChild,
 } from "@headlessui/react";
 import {
   Bars3Icon,
   CalendarIcon,
   ChartPieIcon,
+  ChevronRightIcon,
   DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
@@ -28,7 +32,17 @@ import WalletDropDown from "./WalletDropDown";
 const navigation = [
   { name: "Vesting", href: "/Vesting", icon: HomeIcon, current: true },
   { name: "Token Lock", href: "/TokenLock", icon: UsersIcon, current: false },
-  { name: "Airdrops", href: "#", icon: FolderIcon, current: false },
+  {
+    name: "Airdrops",
+    href: "#",
+    icon: FolderIcon,
+    current: false,
+    children: [
+      { name: "Engineering", href: "/sss" },
+      { name: "Human Resources", href: "#" },
+      { name: "Customer Success", href: "#" },
+    ],
+  },
   { name: "Stalking", href: "#", icon: CalendarIcon, current: false },
   {
     name: "Mint Tokens",
@@ -105,26 +119,66 @@ export default function Header() {
                       >
                         {navigation.map((item) => (
                           <li key={item.name}>
-                            <a
-                              href={item.href}
-                              className={clsx(
-                                pathName.startsWith(item.href)
-                                  ? "text-indigo-300 "
-                                  : "text-gray-700  hover:text-indigo-300 dark:text-white",
-                                "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
-                              )}
-                            >
-                              <item.icon
-                                aria-hidden='true'
+                            {!item.children ? (
+                              <a
+                                href={item.href}
                                 className={clsx(
                                   pathName.startsWith(item.href)
                                     ? "text-indigo-300 "
-                                    : "text-gray-400 group-hover:text-indigo-300 dark:text-white",
-                                  "h-6 w-6 shrink-0"
+                                    : "text-gray-700  hover:text-indigo-300 dark:text-white",
+                                  "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                                 )}
-                              />
-                              {item.name}
-                            </a>
+                              >
+                                <item.icon
+                                  aria-hidden='true'
+                                  className={clsx(
+                                    pathName.startsWith(item.href)
+                                      ? "text-indigo-300 "
+                                      : "text-gray-400 group-hover:text-indigo-300 dark:text-white",
+                                    "h-6 w-6 shrink-0"
+                                  )}
+                                />
+                                {item.name}
+                              </a>
+                            ) : (
+                              <Disclosure as='div'>
+                                <DisclosureButton
+                                  className={clsx(
+                                    item.current
+                                      ? "text-indigo-300 "
+                                      : "text-gray-400 group-hover:text-indigo-300 dark:text-white",
+                                    "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm/6 font-semibold text-gray-700"
+                                  )}
+                                >
+                                  <ChevronRightIcon
+                                    aria-hidden='true'
+                                    className='size-5 shrink-0 text-gray-400 group-data-[open]:rotate-90 group-data-[open]:text-gray-500'
+                                  />
+                                  {item.name}
+                                </DisclosureButton>
+                                <DisclosurePanel
+                                  as='ul'
+                                  className='mt-1 px-2'
+                                >
+                                  {item.children.map((subItem) => (
+                                    <li key={subItem.name}>
+                                      <DisclosureButton
+                                        as='a'
+                                        href={subItem.href}
+                                        className={clsx(
+                                          pathName.startsWith(item.href)
+                                            ? "text-indigo-300 "
+                                            : "hover:text-indigo-300 dark:text-white",
+                                          "block rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
+                                        )}
+                                      >
+                                        {subItem.name}
+                                      </DisclosureButton>
+                                    </li>
+                                  ))}
+                                </DisclosurePanel>
+                              </Disclosure>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -192,26 +246,73 @@ export default function Header() {
                     <li>{}</li>
                     {navigation.map((item) => (
                       <li key={item.name}>
-                        <a
-                          href={item.href}
-                          className={clsx(
-                            pathName.startsWith(item.href)
-                              ? "text-indigo-300"
-                              : "text-gray-700 dark:text-white cursor-pointer",
-                            "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
-                          )}
-                        >
-                          <item.icon
-                            aria-hidden='true'
+                        {!item.children ? (
+                          <a
+                            href={item.href}
                             className={clsx(
                               pathName.startsWith(item.href)
-                                ? "text-indigo-300"
-                                : "text-gray-400 dark:text-white",
-                              "h-6 w-6 shrink-0"
+                                ? "text-indigo-300 "
+                                : "text-gray-700  hover:text-indigo-300 dark:text-white",
+                              "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
                             )}
-                          />
-                          {item.name}
-                        </a>
+                          >
+                            <item.icon
+                              aria-hidden='true'
+                              className={clsx(
+                                pathName.startsWith(item.href)
+                                  ? "text-indigo-300 "
+                                  : "text-gray-400 group-hover:text-indigo-300 dark:text-white",
+                                "h-6 w-6 shrink-0"
+                              )}
+                            />
+                            {item.name}
+                          </a>
+                        ) : (
+                          <Disclosure
+                            as='div'
+                            defaultOpen
+                          >
+                            {({ open }) => (
+                              <>
+                                <DisclosureButton
+                                  className={clsx(
+                                    item.current
+                                      ? "text-indigo-300 "
+                                      : "text-gray-400 group-hover:text-indigo-300 dark:text-white",
+                                    "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm/6 font-semibold text-gray-700"
+                                  )}
+                                >
+                                  <ChevronRightIcon
+                                    aria-hidden='true'
+                                    className='size-5 shrink-0 text-gray-400 group-data-[open]:rotate-90 group-data-[open]:text-gray-500'
+                                  />
+                                  {item.name}
+                                </DisclosureButton>
+                                <DisclosurePanel
+                                  as='ul'
+                                  className='mt-1 px-2'
+                                >
+                                  {item.children.map((subItem) => (
+                                    <li key={subItem.name}>
+                                      <DisclosureButton
+                                        as='a'
+                                        href={subItem.href}
+                                        className={clsx(
+                                          pathName.startsWith(item.href)
+                                            ? "text-indigo-300 "
+                                            : "hover:text-indigo-300 dark:text-white",
+                                          "block rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
+                                        )}
+                                      >
+                                        {subItem.name}
+                                      </DisclosureButton>
+                                    </li>
+                                  ))}
+                                </DisclosurePanel>
+                              </>
+                            )}
+                          </Disclosure>
+                        )}
                       </li>
                     ))}
                   </ul>
