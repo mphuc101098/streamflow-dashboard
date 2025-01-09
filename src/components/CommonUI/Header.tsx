@@ -38,9 +38,9 @@ const navigation = [
     icon: FolderIcon,
     current: false,
     children: [
-      { name: "Engineering", href: "/sss" },
-      { name: "Human Resources", href: "#" },
-      { name: "Customer Success", href: "#" },
+      { name: "Engineering", href: "/sss", icon: ChartPieIcon },
+      { name: "Human Resources", href: "#", icon: ChartPieIcon },
+      { name: "Customer Success", href: "#", icon: ChartPieIcon },
     ],
   },
   { name: "Stalking", href: "#", icon: CalendarIcon, current: false },
@@ -147,14 +147,14 @@ export default function Header() {
                                     item.current
                                       ? "text-indigo-300 "
                                       : "text-gray-400 group-hover:text-indigo-300 dark:text-white",
-                                    "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm/6 font-semibold text-gray-700"
+                                    "group flex w-full items-center justify-between gap-x-3 rounded-md p-2 text-left text-sm/6 font-semibold text-gray-700"
                                   )}
                                 >
+                                  {item.name}
                                   <ChevronRightIcon
                                     aria-hidden='true'
                                     className='size-5 shrink-0 text-gray-400 group-data-[open]:rotate-90 group-data-[open]:text-gray-500'
                                   />
-                                  {item.name}
                                 </DisclosureButton>
                                 <DisclosurePanel
                                   as='ul'
@@ -169,9 +169,18 @@ export default function Header() {
                                           pathName.startsWith(item.href)
                                             ? "text-indigo-300 "
                                             : "hover:text-indigo-300 dark:text-white",
-                                          "block rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
+                                          "flex rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
                                         )}
                                       >
+                                        <subItem.icon
+                                          aria-hidden='true'
+                                          className={clsx(
+                                            pathName.startsWith(item.href)
+                                              ? "text-indigo-300 "
+                                              : "text-gray-400 group-hover:text-indigo-300 dark:text-white",
+                                            "h-6 w-6 shrink-0 mr-2"
+                                          )}
+                                        />
                                         {subItem.name}
                                       </DisclosureButton>
                                     </li>
@@ -279,14 +288,14 @@ export default function Header() {
                                     item.current
                                       ? "text-indigo-300 "
                                       : "text-gray-400 group-hover:text-indigo-300 dark:text-white",
-                                    "group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm/6 font-semibold text-gray-700"
+                                    "group flex w-full items-center justify-between gap-x-3 rounded-md p-2 text-left text-sm/6 font-semibold text-gray-700"
                                   )}
                                 >
+                                  {item.name}
                                   <ChevronRightIcon
                                     aria-hidden='true'
                                     className='size-5 shrink-0 text-gray-400 group-data-[open]:rotate-90 group-data-[open]:text-gray-500'
                                   />
-                                  {item.name}
                                 </DisclosureButton>
                                 <DisclosurePanel
                                   as='ul'
@@ -300,10 +309,19 @@ export default function Header() {
                                         className={clsx(
                                           pathName.startsWith(item.href)
                                             ? "text-indigo-300 "
-                                            : "hover:text-indigo-300 dark:text-white",
-                                          "block rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
+                                            : "group-hover:text-indigo-300 dark:text-white",
+                                          "flex rounded-md py-2 pl-9 pr-2 text-sm/6 text-gray-700"
                                         )}
                                       >
+                                        <subItem.icon
+                                          aria-hidden='true'
+                                          className={clsx(
+                                            pathName.startsWith(item.href)
+                                              ? "text-indigo-300 "
+                                              : "text-gray-400 group-hover:text-indigo-300 dark:text-white",
+                                            "h-6 w-6 shrink-0 mr-2"
+                                          )}
+                                        />
                                         {subItem.name}
                                       </DisclosureButton>
                                     </li>
