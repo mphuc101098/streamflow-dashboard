@@ -6,31 +6,11 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import clsx from "clsx";
+import { useDataTable } from "@/hooks/useDataTable";
 
 const App = () => {
-  const data = React.useMemo(
-    () => [
-      {
-        name: "Lindsay Walton",
-        title: "Front-end Developer",
-        email: "lindsay.walton@example.com",
-        role: "Member",
-      },
-      {
-        name: "Lindsay Walton",
-        title: "Front-end Developer",
-        email: "lindsay.walton@example.com",
-        role: "Member",
-      },
-      {
-        name: "Lindsay Walton",
-        title: "Front-end Developer",
-        email: "lindsay.walton@example.com",
-        role: "Member",
-      },
-    ],
-    []
-  );
+  const { data: queryData } = useDataTable();
+  const data = queryData || [];
 
   const columns = React.useMemo(
     () => [

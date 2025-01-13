@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/CommonUI/Header";
+import ReactQueryProvider from "@/components/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,8 +19,10 @@ export default function RootLayout({
       className='dark max-w-screen h-full'
     >
       <body className='bg-white dark:bg-black'>
-        <Header />
-        <main className='lg:pl-72 px-4 mt-2'>{children}</main>
+        <ReactQueryProvider>
+          <Header />
+          <main className='lg:pl-72 px-4 mt-2'>{children}</main>
+        </ReactQueryProvider>
       </body>
     </html>
   );
